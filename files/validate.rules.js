@@ -33,26 +33,35 @@ function form_add_required_rule(selector, message) {
  * have a value. None of the two fields is marked as required in the field
  * definition in MantisBT
 \*****************************************************************************/
-function form_custom_fields_add_rules(message) {
+function form_custom_fields_add_rules() {
 	$('[name="custom_field_1"]').rules('add', {
-		required: {
-			depends: function(element) {
-				return ($('#custom_field_3').length && $('#custom_field_3').val().length == 0);
-			}
+		required: function(element) {
+			if ($('#custom_field_3') == undefined)
+				return false;
+			return ($('#custom_field_3').length && $('#custom_field_3').val().length == 0);
 		},
 		messages: {
-			required: message
+			required: function(element) {
+				if ($('#custom_field_3').length == 0)
+					return "Please enter a SO Number";
+				return "Please enter a Project Number OR Service Order number or both";
+			}
 		}
 	});
 
 	$('[name="custom_field_3"]').rules('add', {
-		required: {
-			depends: function(element) {
-				return ($('#custom_field_1').length && $('#custom_field_1').val().length == 0);
-			}
+		required: function (element) {
+			if ($('#custom_field_1') == undefined)
+				return false;
+			return ($('#custom_field_1').length && $('#custom_field_1').val().length == 0);
 		},
 		messages: {
-			required: message
+			required: function(element) {
+				if ($('#custom_field_1').length == 0) {
+					return "Please enter a Project Number";
+				}
+				return "Please enter a Project Number OR Service Order number or both";
+			}
 		}
 	});
 }
@@ -72,8 +81,7 @@ $(function () {
 		form_add_required_rule('[name="description"]', "Please explain the issue");
 		
 		// Add specific rules for custom fields
-		// Uncomment when you have custom fields, and adapt the function content to your liking
-		//form_custom_fields_add_rules("Please enter a Project Number OR Service Order number or both");
+		//form_custom_fields_add_rules();
 	}
 	
 	// Use the form ID to allow specific validation for a form
@@ -87,7 +95,6 @@ $(function () {
 		form_add_required_rule('[name="description"]', "Please explain the issue");
 		
 		// Add specific rules for custom fields
-		// Uncomment when you have custom fields, and adapt the function content to your liking
-		//form_custom_fields_add_rules("Please enter a Project Number OR Service Order number or both");
+		//form_custom_fields_add_rules();
 	}
 });

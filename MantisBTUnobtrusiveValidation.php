@@ -28,7 +28,7 @@ extends MantisPlugin
 		$this->name =  plugin_lang_get("title");
 		$this->description = plugin_lang_get("description");
 
-		$this->version = '1.0.0';
+		$this->version = '1.0.1';
 		$this->requires = array(
 			'MantisCore' => '2.0.0',
 		);
@@ -64,6 +64,7 @@ extends MantisPlugin
 	{
 		echo  '<script type="text/javascript" src="' .  plugin_file( 'jquery.validate.min.js' ) . '"></script>' . "\n";
 		echo  '<script type="text/javascript" src="' .  plugin_file( 'jquery.validate.unobtrusive.min.js' ) . '"></script>' . "\n";
+		echo  '<script type="text/javascript" src="' .  plugin_file( 'additional-methods.min.js' ) . '"></script>' . "\n";
 		echo  '<script type="text/javascript" src="' .  plugin_file( 'validate.rules.js' ) . '"></script>' . "\n";
 	}
 }
