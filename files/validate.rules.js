@@ -82,6 +82,19 @@ $(function () {
 		
 		// Add specific rules for custom fields
 		//form_custom_fields_add_rules();
+
+		// get the widget around the submit button, and add a click event handler for the 
+		// CAPTURE phase. This happens before the BUBBLE phase. If the validation fails, the
+		// entire click event is canceled and will not bubble to the dropzone. This can
+		// only be done through a 
+		$('.widget-toolbox:has(input[type=submit])')[0].addEventListener('click', function (e) {
+			var isvalid = $("#report_bug_form").valid();
+			if (!isvalid) {
+				e.preventDefault();
+				e.stopPropagation();
+				return false;
+			}
+		}, true); // Mind the last optional argument. True is useCapture, false is default
 	}
 	
 	// Use the form ID to allow specific validation for a form
